@@ -27,6 +27,7 @@ import org.apache.plc4x.java.knxnetip.ets5.model.GroupAddress;
 import org.apache.plc4x.java.knxnetip.readwrite.io.KnxDatapointIO;
 import org.apache.plc4x.java.spi.generation.ParseException;
 import org.apache.plc4x.java.spi.generation.ReadBuffer;
+import org.apache.plc4x.java.spi.generation.ReadBufferByteBased;
 import org.apache.streampipes.model.runtime.Event;
 import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.routing.SpOutputCollector;
@@ -62,14 +63,14 @@ public class Ets5DataEnrichment implements EventProcessor<Ets5DataEnrichmentPara
             String hexEncodedRawData = event.getFieldBySelector(this.payloadIdFieldName).getAsPrimitive().getAsString();
             // Convert the HEX-encoded data back to byte[]
             byte[] rawData = Hex.decodeHex(hexEncodedRawData);
-            ReadBuffer rawDataReader = new ReadBuffer(rawData);
+            ReadBuffer rawDataReader = new ReadBufferByteBased(rawData);
 
             if (groupAddress != null) {
                 // Decode the raw data.
-                final PlcValue plcValue = KnxDatapointIO.staticParse(rawDataReader, groupAddress.getType().getFormatName());
+                /*final PlcValue plcValue = KnxDatapointIO.staticParse(rawDataReader, groupAddress.getType().getFormatName());
 
                 // Serialize the decoded object to json
-                /*final String jsonDatapoint = datapoint.toString(ToStringStyle.JSON_STYLE);
+                final String jsonDatapoint = datapoint.toString(ToStringStyle.JSON_STYLE);
 
                 // Add the additional properties.
                 event.addField(Ets5DataEnrichmentController.MAPPING_FIELD_DECODED_GROUP_ADDRESS,
@@ -92,9 +93,9 @@ public class Ets5DataEnrichment implements EventProcessor<Ets5DataEnrichmentPara
             } else {
                 System.out.println("Couldn't decode group address " + destinationAddress);
             }
-        } catch (ParseException e) {
+        /*} catch (ParseException e) {
             // Driver Decoding
-            e.printStackTrace();
+            e.printStackTrace();*/
         } catch (DecoderException e) {
             // Hex Decoding
             e.printStackTrace();

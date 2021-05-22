@@ -22,7 +22,11 @@
 
   <name>CANOpen SDO Segmentation</name>
 
+  <protocolName>canopen</protocolName>
+  <outputFlavor>read-write</outputFlavor>
+
   <driver-name>canopen</driver-name>
+
   <driver-parameters>
     <parameter>
       <name>nodeId</name>
@@ -41,9 +45,9 @@
     </description>
     <steps>
       <api-request name="Receive Read Request from application">
-        <TestReadRequest className="org.apache.plc4x.test.driver.model.api.TestReadRequest">
+        <TestReadRequest>
           <fields>
-            <field className="org.apache.plc4x.test.driver.model.api.TestField">
+            <field className="org.apache.plc4x.test.driver.internal.api.TestField">
               <name>expeditedSdo</name>
               <address>SDO:1:1000/22:UNSIGNED32</address>
             </field>
@@ -80,7 +84,7 @@
                 <subindex>22</subindex>
               </address>
               <payload className="org.apache.plc4x.java.canopen.readwrite.SDOInitiateExpeditedUploadResponse">
-                <data>YXNkZg==</data>
+                <data>61736466</data>
               </payload>
             </response>
           </payload>
@@ -100,7 +104,7 @@
                 <subindex>22</subindex>
               </address>
               <payload className="org.apache.plc4x.java.canopen.readwrite.SDOInitiateExpeditedUploadResponse">
-                <data>YXNkZg==</data>
+                <data>61736466</data>
               </payload>
             </response>
           </payload>
@@ -138,9 +142,9 @@
     </description>
     <steps>
       <api-request name="Receive Read Request from application">
-        <TestReadRequest className="org.apache.plc4x.test.driver.model.api.TestReadRequest">
+        <TestReadRequest>
           <fields>
-            <field className="org.apache.plc4x.test.driver.model.api.TestField">
+            <field className="org.apache.plc4x.test.driver.internal.api.TestField">
               <name>expeditedShort</name>
               <address>SDO:1:9186/1:UNSIGNED8</address>
             </field>
@@ -177,7 +181,7 @@
                 <subindex>1</subindex>
               </address>
               <payload className="org.apache.plc4x.java.canopen.readwrite.SDOInitiateExpeditedUploadResponse">
-                <data>YXNkZg==</data>
+                <data>61736466</data>
                 as its timed out </payload>
             </response>
           </payload>
@@ -215,9 +219,9 @@
     </description>
     <steps>
       <api-request name="Receive Read Request from application">
-        <TestReadRequest className="org.apache.plc4x.test.driver.model.api.TestReadRequest">
+        <TestReadRequest>
           <fields>
-            <field className="org.apache.plc4x.test.driver.model.api.TestField">
+            <field className="org.apache.plc4x.test.driver.internal.api.TestField">
               <name>expeditedSdoCustomAnswer</name>
               <address>SDO:1/2:1000/22:UNSIGNED32</address>
             </field>
@@ -254,7 +258,7 @@
                 <subindex>22</subindex>
               </address>
               <payload className="org.apache.plc4x.java.canopen.readwrite.SDOInitiateExpeditedUploadResponse">
-                <data>YXNkZg==</data>
+                <data>61736466</data>
               </payload>
             </response>
           </payload>
@@ -274,7 +278,7 @@
                 <subindex>22</subindex>
               </address>
               <payload className="org.apache.plc4x.java.canopen.readwrite.SDOInitiateExpeditedUploadResponse">
-                <data>YXNkZg==</data>
+                <data>61736466</data>
               </payload>
             </response>
           </payload>
@@ -312,9 +316,9 @@
     </description>
     <steps>
       <api-request name="Receive Read Request from application">
-        <TestReadRequest className="org.apache.plc4x.test.driver.model.api.TestReadRequest">
+        <TestReadRequest>
           <fields>
-            <field className="org.apache.plc4x.test.driver.model.api.TestField">
+            <field className="org.apache.plc4x.test.driver.internal.api.TestField">
               <name>segmentedSdo</name>
               <address>SDO:2:2000/44:RECORD</address>
             </field>
@@ -379,7 +383,7 @@
             <response className="org.apache.plc4x.java.canopen.readwrite.SDOSegmentUploadResponse">
               <toggle>false</toggle>
               <last>false</last>
-              <data>YXNkZg==</data>
+              <data>61736466</data>
             </response>
           </payload>
         </CANOpenSocketCANFrame>
@@ -406,7 +410,7 @@
             <response className="org.apache.plc4x.java.canopen.readwrite.SDOSegmentUploadResponse">
               <toggle>true</toggle>
               <last>false</last>
-              <data>YXNkZg==</data>
+              <data>61736466</data>
             </response>
           </payload>
         </CANOpenSocketCANFrame>
@@ -433,7 +437,7 @@
             <response className="org.apache.plc4x.java.canopen.readwrite.SDOSegmentUploadResponse">
               <toggle>false</toggle>
               <last>true</last>
-              <data>YXNkZg==</data>
+              <data>61736466</data>
             </response>
           </payload>
         </CANOpenSocketCANFrame>
@@ -480,9 +484,9 @@
     </description>
     <steps>
       <api-request name="Receive Read Request from application">
-        <TestReadRequest className="org.apache.plc4x.test.driver.model.api.TestReadRequest">
+        <TestReadRequest>
           <fields>
-            <field className="org.apache.plc4x.test.driver.model.api.TestField">
+            <field className="org.apache.plc4x.test.driver.internal.api.TestField">
               <name>TheFailingField</name>
               <address>SDO:1:1000/22:UNSIGNED32</address>
             </field>

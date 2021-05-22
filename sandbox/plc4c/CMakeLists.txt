@@ -43,6 +43,7 @@ elseif (BUILD_PHASE STREQUAL test-compile)
     include(CTest)
 
     # Make the Unity sources available to the build as "Unity" library
+    # TODO: We should make this optional and enabled by some variable passed in from maven. If we comment it out it won't build on systems that don't have unity installed.
     add_subdirectory(target/dependency/Unity-${UNITY_VERSION})
 
     #add_library(Unity STATIC
@@ -56,7 +57,7 @@ else ()
     message(FATAL_ERROR "Given BUILD_PHASE unknown. Known values are 'compile' and 'test-compile'")
 endif ()
 
-set(DEBUG_OUTPUT OFF CACHE BOOL "Enable outputting of debug information")
+set(DEBUG_OUTPUT ON CACHE BOOL "Enable outputting of debug information")
 if (DEBUG_OUTPUT)
     # Trace all CMAKE Variables
     get_cmake_property(_variableNames VARIABLES)

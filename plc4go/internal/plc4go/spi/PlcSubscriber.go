@@ -16,11 +16,12 @@
 // specific language governing permissions and limitations
 // under the License.
 //
+
 package spi
 
 import "github.com/apache/plc4x/plc4go/pkg/plc4go/model"
 
 type PlcSubscriber interface {
 	Subscribe(subscriptionRequest model.PlcSubscriptionRequest) <-chan model.PlcSubscriptionRequestResult
-    Unsubscribe(unsubscriptionRequest model.PlcUnsubscriptionRequest) <-chan model.PlcUnsubscriptionRequestResult
+	Unsubscribe(unsubscriptionRequest model.PlcUnsubscriptionRequest) <-chan model.PlcUnsubscriptionRequestResult
 }

@@ -21,23 +21,38 @@
 #include <plc4c/transport_tcp.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#ifndef _WIN32
 #include <netdb.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <string.h>
-#include <errno.h>
+#else
+#include <winsock.h>
+#define strtok_r strtok_s
+#define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
+#define MSG_DONTWAIT 0
+#endif
 
 extern int errno;
 
 plc4c_return_code plc4c_transport_tcp_configure_function(
-    plc4c_list* parameters, void** configuration) {
+    char* transport_connect_information, plc4c_list* parameters, void** configuration) {
   plc4c_transport_tcp_config* tcp_configuration = malloc(sizeof(plc4c_transport_tcp_config));
-  if(tcp_configuration == NULL) {
+  if (tcp_configuration == NULL) {
     return NO_MEMORY;
   }
-  // TODO: Implement this ...
-  tcp_configuration->address = "192.168.23.30";
-  tcp_configuration->port = 102;
+
+  char *port;
+  char *host = strtok_r(transport_connect_information, ":", &port);
+  tcp_configuration->address = host;
+  // If no port was specified, generally use the default port for this driver
+  if (strlen(port) == 0) {
+    // TODO: Currently return an error.
+    return INTERNAL_ERROR;
+  } else {
+    tcp_configuration->port = atoi(port);
+  }
 
   *configuration = tcp_configuration;
   return OK;
@@ -50,6 +65,14 @@ plc4c_return_code plc4c_transport_tcp_open_function(void* config) {
 
   plc4c_transport_tcp_config* tcp_config = config;
 
+#ifdef _WIN32
+  WSADATA wsa;
+  int wsa_res = WSAStartup(MAKEWORD(2,2), &wsa);
+  // Something happened when initializing the WinSock API usage
+  if (wsa_res != 0) {
+    return INTERNAL_ERROR;
+  }
+#endif
   tcp_config->sockfd = socket(AF_INET, SOCK_STREAM, 0);
   if (tcp_config->sockfd < 0) {
     return CONNECTION_ERROR;
@@ -65,7 +88,7 @@ plc4c_return_code plc4c_transport_tcp_open_function(void* config) {
                        sizeof(servaddr));
   if(result != 0) {
     char* error_msg = strerror(errno);
-    printf(error_msg);
+    printf("%s\n", error_msg);
     return CONNECTION_ERROR;
   }
   return OK;
@@ -88,7 +111,7 @@ plc4c_return_code plc4c_transport_tcp_send_message_function(
     void* transport_configuration, plc4c_spi_write_buffer* message) {
   plc4c_transport_tcp_config* tcp_config = transport_configuration;
 
-  ssize_t bytes_sent = send(tcp_config->sockfd, message->data, message->length, MSG_DONTWAIT);
+  size_t bytes_sent = send(tcp_config->sockfd, message->data, message->length, MSG_DONTWAIT);
   if(bytes_sent < 0) {
     return CONNECTION_ERROR;
   }

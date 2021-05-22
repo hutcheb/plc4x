@@ -16,18 +16,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
+
 package transports
 
 import (
-	"github.com/apache/plc4x/plc4go/internal/plc4go/transports/tcp"
-	"github.com/apache/plc4x/plc4go/internal/plc4go/transports/udp"
+	"github.com/apache/plc4x/plc4go/internal/plc4go/spi/transports/tcp"
+	"github.com/apache/plc4x/plc4go/internal/plc4go/spi/transports/udp"
 	"github.com/apache/plc4x/plc4go/pkg/plc4go"
 )
 
 func RegisterTcpTransport(driverManager plc4go.PlcDriverManager) {
-	driverManager.RegisterTransport(tcp.NewTcpTransport())
+	driverManager.RegisterTransport(tcp.NewTransport())
 }
 
 func RegisterUdpTransport(driverManager plc4go.PlcDriverManager) {
-	driverManager.RegisterTransport(udp.NewUdpTransport())
+	driverManager.RegisterTransport(udp.NewTransport())
 }

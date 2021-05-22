@@ -18,11 +18,17 @@
 //
 module github.com/apache/plc4x/plc4go
 
-go 1.15
+go 1.16
 
 require (
 	github.com/ajankovic/xdiff v0.0.1
+	github.com/elastic/go-licenser v0.3.1 // indirect
 	github.com/icza/bitio v1.0.0
-	github.com/sirupsen/logrus v1.7.0
+	github.com/pkg/errors v0.9.1
+	github.com/rs/zerolog v1.20.0
+	github.com/snksoft/crc v1.1.0
 	github.com/subchen/go-xmldom v1.1.2
+	github.com/tebeka/go2xunit v1.4.10 // indirect
+	golang.org/x/tools v0.1.1 // indirect
+	gotest.tools/gotestsum v1.6.4 // indirect
 )

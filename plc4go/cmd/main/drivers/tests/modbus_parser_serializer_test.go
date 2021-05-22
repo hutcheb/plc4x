@@ -16,13 +16,15 @@
 // specific language governing permissions and limitations
 // under the License.
 //
+
 package tests
 
 import (
-    "github.com/apache/plc4x/plc4go/internal/plc4go/testutils"
-    "testing"
+	_ "github.com/apache/plc4x/plc4go/cmd/main/initializetest"
+	"github.com/apache/plc4x/plc4go/internal/plc4go/spi/testutils"
+	"testing"
 )
 
 func TestModbusParserSerializer(t *testing.T) {
-    testutils.RunParserSerializerTestsuite(t, "assets/testing/protocols/modbus/ParserSerializerTestsuite.xml")
+	testutils.RunParserSerializerTestsuite(t, "assets/testing/protocols/modbus/ParserSerializerTestsuite.xml")
 }

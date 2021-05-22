@@ -16,38 +16,32 @@
 // specific language governing permissions and limitations
 // under the License.
 //
+
 package plc4go
 
 import (
-    "net/url"
-    "github.com/apache/plc4x/plc4go/internal/plc4go/transports"
+	"github.com/apache/plc4x/plc4go/internal/plc4go/spi/transports"
+	"github.com/apache/plc4x/plc4go/pkg/plc4go/model"
+	"net/url"
 )
 
-type PlcDriverResult struct {
-	Driver PlcDriver
-	Err    error
-}
-
-func NewPlcDriverResult(driver PlcDriver, err error) PlcDriverResult {
-	return PlcDriverResult{
-		Driver: driver,
-		Err:    err,
-	}
-}
-
 type PlcDriver interface {
-	// Get the short code used to identify this driver (As used in the connection string)
+	// GetProtocolCode Get the short code used to identify this driver (As used in the connection string)
 	GetProtocolCode() string
-	// Get a human readable name for this driver
+	// GetProtocolName Get a human readable name for this driver
 	GetProtocolName() string
 
-	// If the driver has a default form of transport, provide this and make
+	// GetDefaultTransport If the driver has a default form of transport, provide this and make
 	// providing the transport code optional in the connection string
 	GetDefaultTransport() string
 
-	// Have the driver parse the query string and provide feedback if it's not a valid one
+	// CheckQuery Have the driver parse the query string and provide feedback if it's not a valid one
 	CheckQuery(query string) error
 
-	// Establishes a connection to a given PLC using the information in the connectionString
+	// GetConnection Establishes a connection to a given PLC using the information in the connectionString
 	GetConnection(transportUrl url.URL, transports map[string]transports.Transport, options map[string][]string) <-chan PlcConnectionConnectResult
+
+	SupportsDiscovery() bool
+
+	Discover(callback func(event model.PlcDiscoveryEvent)) error
 }

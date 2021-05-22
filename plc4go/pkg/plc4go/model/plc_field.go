@@ -16,9 +16,11 @@
 // specific language governing permissions and limitations
 // under the License.
 //
+
 package model
 
 type PlcField interface {
+	GetAddressString() string
 	GetTypeName() string
 	GetQuantity() uint16
 }

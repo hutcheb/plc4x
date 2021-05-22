@@ -16,12 +16,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
+
 package drivers
 
 import (
 	"encoding/hex"
+	_ "github.com/apache/plc4x/plc4go/cmd/main/initializetest"
 	"github.com/apache/plc4x/plc4go/internal/plc4go/s7/readwrite/model"
-	"github.com/apache/plc4x/plc4go/internal/plc4go/utils"
+	"github.com/apache/plc4x/plc4go/internal/plc4go/spi/utils"
 	"testing"
 )
 
@@ -31,7 +33,7 @@ func TestS7(t *testing.T) {
 	if err != nil {
 		// Output an error ...
 	}
-	rb := utils.NewReadBuffer(request)
+	rb := utils.NewReadBufferByteBased(request)
 	adu, err := model.TPKTPacketParse(rb)
 	if err != nil {
 		t.Errorf("Error parsing: %s", err)
